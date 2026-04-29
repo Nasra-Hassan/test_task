@@ -1,27 +1,35 @@
 import React, { useState } from "react";
 
-
-const AddTodo = () => {
-
+const AddTodo = ({ onAddTodo }) => {
     const [name, setName] = useState("");
 
-    const handlechange = (e) => {
-        setName(e.target.value);
-        console.log(e);
-        
-    }
+const handlechange = (e) => {
+    setName(e.target.value);
+};
 
+const handleSubmit = (e) => {
+    e.preventDefault();
 
-    return (
-        <>
-            <form>
-                <input type="text" name="" id="" onChange={handlechange} value={name} />
-                <button>Add</button>
-            </form>
-            <p>{name}</p>
-        </>
-    );
+    if (name.trim() === "") return;
+
+    onAddTodo(name);
+    setName("");
+};
+
+return (
+    <>
+        <form className="text-center border{[1px]}" onSubmit={handleSubmit}>
+            <input
+                type="text"
+                onChange={handlechange}
+                value={name}
+                placeholder="Enter a task"
+            />
+            <button className="bg-gray-500" type="submit">Add</button>
+        </form>
+    </>
+);
 }
 
-
 export default AddTodo;
+
